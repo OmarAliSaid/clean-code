@@ -1,6 +1,11 @@
 
 # Clean Code Book Summary ( By Robert C. Martin )
+## Table of contents
+- [Foreword](#foreword)
+- [Chapter 1 - Clean Code](#chapter1)
+- [Chapter 2 - Meaningful Names](#chapter2)
 
+<a name="foreword">
 # Foreword 
 
 In about 1951, a quality approach called Total Productive Maintenance (TPM) came on the Japanese scene. Its focus is on maintenance rather than on production. One of the major pillars of TPM is the set of so-called  **5S principles :**  
@@ -11,14 +16,15 @@ In about 1951, a quality approach called Total Productive Maintenance (TPM) came
 -   **_Seiketsu_**, or  **standardization**: The group agrees about how to keep the workplace clean. they put standards ? Where do those standards come from? we will find that later on
 -   **_Shutsuke_**, or  **discipline**  (_self_-discipline) : This means having the discipline to follow the practices and to frequently reflect on one’s work and be willing to change.
 
-
+<a name="chapter1">
 # Chapter 1 - Clean Code
 ### what does Bjarne Stroustrup says about clean code ?
 I like my code to be elegant and efficient. The logic should be straightforward to make it hard for bugs to hide, the dependencies minimal to ease maintenance, error handling complete according to an articulated strategy, and per- formance close to optimal so as not to tempt people to make the code messy with unprinci- pled optimizations. Clean code does one thing well.
 ### How To Defend Your Clean Code Responsability Against Your Managers
 what if you were a doctor and had a patient who demanded that you stop all the silly hand-washing in preparation for surgery because it was taking too much time?2 Clearly the patient is the boss; and yet the doctor should absolutely refuse to comply. Why? Because the doctor knows more than the patient about the risks of dis- ease and infection. It would be unprofessional (never mind criminal) for the doctor to comply with the patient.  
 So too it is unprofessional for programmers to bend to the will of managers who don’t understand the risks of making messes.
-
+	
+<a name="chapter2">
 # Chapter 2 - Meaningful Names
 
 ## 1 - Use Intention-Revealing Names
