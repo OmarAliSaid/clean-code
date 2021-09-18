@@ -118,7 +118,7 @@ The name `AccountVisitor` means a great deal to a programmer who is familiar wit
 
 ## 12 - **Use Problem Domain Names**
 The code that has more to do with problem domain concepts should have names drawn from the problem domain.<br/>
-**insertUser** -> Problem Domain
+**insertUser** -> Problem Domain <br/>
 **pubbleSortUsers** -> Soluation Domain
 
 ## 13 - **Add Meaningful Context**
