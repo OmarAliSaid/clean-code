@@ -8,7 +8,7 @@
 <a name="foreword">
 <h1>Foreword</h1> 
 </a>
-In about 1951, a quality approach called Total Productive Maintenance (TPM) came on the Japanese scene. Its focus is on maintenance rather than on production. One of the major pillars of TPM is the set of so-called  **5S principles :**  
+In about 1951, a quality approach called Total Productive Maintenance (TPM) came on the Japanese scene. Its focus is on maintenance rather than on production. One of the major pillars of TPM is the set of so-called 5S principles
 
 -   **_Seiri_**, or  **organization**  : Knowing where things are—using approaches such as suitable naming—is crucial. You think naming identifiers isn’t important? well it’s  **IMPORTANT**.
 -   **_Seiton_**, or  **tidiness**  : _A place for everything, and everything in its place_. A piece of code should be where you expect to find it—and, if not, you should re-factor to get it there.
