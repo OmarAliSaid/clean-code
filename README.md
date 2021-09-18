@@ -6,8 +6,8 @@
 - [Chapter 2 - Meaningful Names](#chapter2)
 
 <a name="foreword">
-# Foreword 
-
+<h1>Foreword</h1> 
+</a>
 In about 1951, a quality approach called Total Productive Maintenance (TPM) came on the Japanese scene. Its focus is on maintenance rather than on production. One of the major pillars of TPM is the set of so-called  **5S principles :**  
 
 -   **_Seiri_**, or  **organization**  : Knowing where things are—using approaches such as suitable naming—is crucial. You think naming identifiers isn’t important? well it’s  **IMPORTANT**.
@@ -17,7 +17,9 @@ In about 1951, a quality approach called Total Productive Maintenance (TPM) came
 -   **_Shutsuke_**, or  **discipline**  (_self_-discipline) : This means having the discipline to follow the practices and to frequently reflect on one’s work and be willing to change.
 
 <a name="chapter1">
-# Chapter 1 - Clean Code
+<h1>Chapter 1 - Clean Code</h1>
+</a>
+
 ### what does Bjarne Stroustrup says about clean code ?
 I like my code to be elegant and efficient. The logic should be straightforward to make it hard for bugs to hide, the dependencies minimal to ease maintenance, error handling complete according to an articulated strategy, and per- formance close to optimal so as not to tempt people to make the code messy with unprinci- pled optimizations. Clean code does one thing well.
 ### How To Defend Your Clean Code Responsability Against Your Managers
@@ -25,7 +27,8 @@ what if you were a doctor and had a patient who demanded that you stop all the s
 So too it is unprofessional for programmers to bend to the will of managers who don’t understand the risks of making messes.
 	
 <a name="chapter2">
-# Chapter 2 - Meaningful Names
+<h1>Chapter 2 - Meaningful Names</h1>
+</a>
 
 ## 1 - Use Intention-Revealing Names
 use names that actually reveals your intention of using that variable 
