@@ -1,9 +1,11 @@
 
+
 # Clean Code Book Summary ( By Robert C. Martin )
 ## Table of contents
 - [Foreword](#foreword)
 - [Chapter 1 - Clean Code](#chapter1)
 - [Chapter 2 - Meaningful Names](#chapter2)
+- [Chapter 3 - Functions](#chapter3)
 
 <a name="foreword">
 <h1>Foreword</h1> 
@@ -127,3 +129,145 @@ create a class named `Address`. Then, even the compiler knows that the variables
 
 ## 14 - **Don’t Add Gratuitous Context**
 In an imaginary application called “Gas Station Deluxe,” it is a bad idea to prefix every class or function with `GSD`
+
+<a name="chapter3">
+<h1>Chapter 3 - Functions</h1>
+</a>
+
+# 1 - **Small**
+The first rule of functions is that they should be small. The second rule of functions is that *they should be smaller than that.*
+
+### **Blocks and Indenting**
+This implies that the blocks within if statements, else statements, while statements, and so on should be one line long. Probably that line should be a function call. Not only does this keep the enclosing function small, but it also adds documentary value because the function called within the block can have a nicely descriptive name.
+
+# 2 - **Do One Thing**
+FUNCTIONS SHOULD DO ONE THING. THEY SHOULD DO IT WELL. THEY SHOULD DO IT ONLY.
+
+### **Sections within Functions**
+if a function is divided into sections such as `declarations`, `initializations`, and `sieve`. This is an obvious symptom of doing more than one thing. Functions that do one thing cannot be reasonably divided into sections.
+
+# 3 - **One Level of Abstraction per Function**
+Mixing levels of abstraction within a function is always confusing. Readers may not be able to tell whether a particular expression is an essential concept or a detail. for example:
+
+- `getHtml()` -> High level abstraction
+-  `String pagePathName = PathParser.render(pagePath);` -> intermediate level abstraction
+- `.append("\n")` -> low level abstraction
+
+###  **Reading Code from Top to Bottom: The Stepdown Rule**
+We want the code to read like a top-down narrative. We want every function to be fol- lowed by those at the next level of abstraction so that we can read the program, descending one level of abstraction at a time as we read down the list of functions.
+
+
+# 4 - **Switch Statements**
+`switch` statements always do N things. Unfortunately we can’t always avoid `switch` statements, but we can make sure that each switch statement is buried in a `low-level` class and is never repeated. We do this, of course, with `polymorphism`.
+
+# 5 - **Use Descriptive Names**
+- The smaller and more focused a function is, the easier it is to choose a descriptive name.
+- Don’t be afraid to make a name long. A long descriptive name is better than a short enigmatic name.
+- A long descriptive name is better than a long descriptive comment.
+
+# 6 - **Function Arguments**
+The ideal number of arguments for a function is zero (niladic). Next comes one (monadic), followed closely by two (dyadic). Three arguments (triadic) should be avoided where possible. More than three (polyadic) requires very special justification—and then shouldn’t be used anyway.
+
+###   **Flag Arguments**
+Flag arguments`|True,False|` are ugly. Passing a boolean into a function is a truly terrible practice. It immediately complicates the signature of the method, loudly proclaiming that this function does more than one thing. It does one thing if the flag is true and another if the flag is false!
+
+### **Dyadic Functions**
+A function with two arguments is harder to understand than a monadic function. For exammple, `writeField(name)` is easier to understand than `writeField(output-Stream, name)`.
+There are times, of course, where two arguments are appropriate. For example, `Point p = new Point(0,0);` is perfectly reasonabl.
+
+### **Triads**
+Functions that take three arguments are significantly harder to understand than dyads. The issues of ordering, pausing, and ignoring are more than doubled. I suggest you think very carefully before creating a triad.
+For example, consider the common overload of `assertEquals` that takes three arguments: `assertEquals(message, expected, actual)`. How many times have you read the `message` and thought it was the `expected`?
+
+### **Argument Objects**
+When a function seems to need more than two or three arguments, it is likely that some of those arguments ought to be wrapped into a class of their own. Consider, for example, the difference between the two following declarations:
+
+    Circle makeCircle(double x, double y, double radius);
+    Circle makeCircle(Point center, double radius);
+
+### **Argument Lists**
+Function that takes argument lists can be monads, dyads or even triads: 
+
+    void monad(String... args);
+    void dyad(String name, String... args); 
+    void triad(String name, int count, String... args)
+
+### **Verbs and Keywords**
+Choosing good names for a function can go a long way toward explaining the intent of the function and the order and intent of the arguments. In the case of a monad, the function and argument should form a very nice verb/noun pair.
+`writeField(name)` is better than `write(name)`
+
+# 7 - **Have No Side Effects**
+Your function promises to do one thing, but it also does other hidden things. Sometimes it will make unexpected changes to the variables of its own class or even more.
+Consider, for example, This function uses a standard algorithm to match a `userName` to a `password`. It returns `true` if they match and `false` if anything goes wrong. But it also has a side effect. Can you spot it?
+```java
+public class UserValidator {  
+	private Cryptographer cryptographer;
+
+	public boolean checkPassword(String userName, String password) { 
+		User user = UserGateway.findByName(userName);  
+		if (user != User.NULL) {
+			String codedPhrase = user.getPhraseEncodedByPassword(); 
+			String phrase = cryptographer.decrypt(codedPhrase, password);
+			if ("Valid Password".equals(phrase)) {
+				Session.initialize();
+				return true; 
+			}
+		}
+		return false; 
+	}
+}
+```
+The side effect is the call to `Session.initialize()`, of course. The `checkPassword` function, by its name, says that it checks the password. If it is called out of order, session data may be inadvertently lost. Temporal couplings are con-fusing, especially when hidden as a side effect. 
+If you must have a temporal coupling, you should make it clear in the name of the function. In this case we might rename the function `checkPasswordAndInitializeSession`, though that certainly violates `“Do one thing.”`
+
+### **Output Arguments**
+output arguments should be avoided. If your function must change the state of something, have it change the state of its owning object.
+when you see this functions `appendFooter(report);` you will be asking Does this function append `report` as the footer to something? Or does it append some footer to `report`? Is s an input or an output? 
+better approch is to add the append   `report.appendFooter();` as a functiuon to a report object to make it clear.
+
+# 8 - **Command Query Separation**
+Functions should either do something or answer something, but not both as it will be confusing.
+for example `public boolean set(String attribute, String value);` This function sets the value of a named attribute and returns `true` if it is successful and `false` if no such attribute exists.
+ This leads to odd statements like this: `if (set("username", "unclebob"))`
+ so a better version will be :
+ ```java
+ if (attributeExists("username")) { 
+	 setAttribute("username", "unclebob");
+	 ....
+}
+```
+
+# 9 - **Prefer Exceptions to Returning Error Code**
+```java
+public void delete(Page page) { 
+	try {
+		deletePageAndAllReferences(page); 
+	}catch (Exception e) { 
+		logError(e);
+	} 
+}
+
+private void deletePageAndAllReferences(Page page) throws Exception { 
+	deletePage(page);  
+	registry.deleteReference(page.name); 
+	configKeys.deleteKey(page.name.makeKey());
+}
+
+private void logError(Exception e) {
+	logger.log(e.getMessage());
+}
+```
+In the above, the `delete` function is all about error processing. It is easy to understand and then ignore. The `deletePageAndAllReferences` function is all about the processes of fully deleting a page. Error handling can be ignored. This provides a nice separation that makes the code easier to understand and modify.
+
+### **Error Handling Is One Thing**
+Functions should do one thing. Error handing is one thing. Thus, a function that handles errors should do nothing else.
+
+### **The Error.java Dependency Magnet**
+Use Exceptions instead of Error codes.
+
+# 10 - **Don’t Repeat Yourself**
+Duplication may be the root of all evil in software. Many principles and practices have been created for the purpose of controlling or eliminating it.
+
+# 11 - **Structured Programming**
+every function, and every block within a function, should have one entry and one exit. Following these rules means that there should only be one `return` statement in a function, no `break` or `continue` statements in a loop, and never, ever, any `goto` statements.
+So if you keep your functions `small`, then the occasional multiple `return`, `break`, or continue statement does no harm and can sometimes even be more expressive than the single-entry, single-exit rule. On the other hand, goto only makes sense in large functions, so it should be avoided.
